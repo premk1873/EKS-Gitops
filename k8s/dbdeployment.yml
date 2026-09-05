@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: default
+  namespace: notesapp
   labels:
     app: mysql
 spec:
@@ -20,7 +20,7 @@ spec:
       volumes: 
         - name: mysqldata
           persistentVolumeClaim:
-            claimName: mysql-pvc
+            claimName: mysqlPVC
       containers:
       - name: mysql
         image:  mysql:8.0
@@ -38,16 +38,16 @@ spec:
             memory: 1Gi
         livenessProbe:
           exec:
-            command: ["mysql","ping","-h","localhost"]
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            failureThreshold: 5
+            command: ["mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$(MYSQL_ROOT_PASSWORD)"]
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          failureThreshold: 5
         readinessProbe:
           exec:
-            command: ["mysql","ping","-h","localhost"]
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            failureThreshold: 5
+            command: ["mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$(MYSQL_ROOT_PASSWORD)"]
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          failureThreshold: 5
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -59,3 +59,13 @@ spec:
             configMapKeyRef:
               name: notesappCM
               key: DB_NAME
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: DB_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: DB_PASSWORD

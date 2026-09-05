@@ -44,7 +44,7 @@ module "eks" {
       max_size       = var.max_nodes
 
       tags = {
-        NodeGroup = "bankapp"
+        NodeGroup = "notesapp"
       }
     }
   }

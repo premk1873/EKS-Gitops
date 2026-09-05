@@ -16,11 +16,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysqlservice
+  name: mysql
   namespace: notesapp
 spec:
   selector:
-    app: mysqlservice
+    app: mysql
   type: ClusterIP
   ports:
     - port: 3306
