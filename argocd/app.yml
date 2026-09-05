@@ -5,9 +5,10 @@ metadata:
   namespace: argocd
   project: default
   source:
-    repoURL: https://github.com/<your-username>/cloudnotes-eks-argocd.git
-    targetRevision: main
-    path: k8s
+    source:
+      repoURL: https://github.com/premk1873/EKS-Gitops.git
+      targetRevision: main
+      path: k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: notesapp
