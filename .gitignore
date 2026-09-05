@@ -1,0 +1,14 @@
+# Terraform
+terraform/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan
+crash.log
+
+# Node
+node_modules/
+.env
+
+# Editor/OS
+.vscode/
+.DS_Store

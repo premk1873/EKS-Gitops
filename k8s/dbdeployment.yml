@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: default
+  labels:
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes: 
+        - name: mysqldata
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+      containers:
+      - name: mysql
+        image:  mysql:8.0
+        ports:
+          - containerPort: 3306
+        volumeMounts:
+          - name: mysqldata 
+            mountPath: /var/lib/mysql
+        resources:
+          requests:
+            cpu: 256m
+            memory: 512Mi
+          limits:
+            cpu: 512m
+            memory: 1Gi
+        livenessProbe:
+          exec:
+            command: ["mysql","ping","-h","localhost"]
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 5
+        readinessProbe:
+          exec:
+            command: ["mysql","ping","-h","localhost"]
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 5
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: notesappCM
+              key: DB_NAME

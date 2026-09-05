@@ -1,0 +1,33 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: notesappHPA
+  namespace: notesapp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: notesapp
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  behavior:
+    scaleUP:
+      stabalizationWindowSeconds: 30
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 30
+    scaleDown:
+      stabalizationWindowSeconds: 180
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 30
+
