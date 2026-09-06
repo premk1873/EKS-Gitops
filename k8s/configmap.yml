@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: notesappCM
+  name: notesapp-cm
   namespace: notesapp
 data:
   DB_HOST: "mysql"

@@ -41,7 +41,7 @@ spec:
             memory: 512Mi
         envFrom:
           - configMapRef:
-              name: notesappCM
+              name: notesapp-cm
           - secretRef:
               name: secrets
         livenessProbe:

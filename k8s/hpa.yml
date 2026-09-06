@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: notesappHPA
+  name: notesapp-hpa
   namespace: notesapp
 spec:
   scaleTargetRef:
