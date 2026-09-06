@@ -4,7 +4,7 @@ metadata:
   name: mysql-pvc
   namespace: notesapp
   labels:
-    app: mysqlPVC
+    app: mysql-pvc
 spec:
   storageClassName: gp3
   accessModes:
