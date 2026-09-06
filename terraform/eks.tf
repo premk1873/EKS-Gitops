@@ -37,7 +37,7 @@ module "eks" {
 
   # Managed Node Group
   eks_managed_node_groups = {
-    bankapp-ng = {
+    notesapp-ng = {
       instance_types = [var.node_instance_type]
       desired_size   = var.desired_nodes
       min_size       = var.min_nodes

@@ -17,7 +17,7 @@ variable "cluster_version" {
 }
 
 variable "node_instance_type" {
-  default     = "t3.small"
+  default     = "c7i-flex.large"
   type        = string
   description = "Instance type of nodes in EKS cluster"
 }
