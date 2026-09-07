@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: notesapp
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: 3000
       targetPort: 3000 
