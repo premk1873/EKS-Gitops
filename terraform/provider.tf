@@ -9,6 +9,13 @@ terraform {
       version = "~> 2.17"
     }
   }
+  
+  backend "s3" {
+    bucket         = "notesapp-tfstate-premk1873"
+    key            = "terraform/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "cloudnotes-tfstate-lock"
+  }
 }
 
 locals {
